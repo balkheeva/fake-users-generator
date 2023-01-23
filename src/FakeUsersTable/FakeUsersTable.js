@@ -27,6 +27,7 @@ export default function FakeUsersTable() {
     };
     const csvExporter = new ExportToCsv(options);
     const handleExportCSV = () => {
+
         csvExporter.generateCsv(users.map(user => user.personalInfo));
     }
 
