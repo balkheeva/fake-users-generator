@@ -13,6 +13,7 @@ export default function FakeUsersTable() {
     const [users, setUsers] = useState([])
     const [probability, setProbability] = useState(null)
     const [seed, setSeed] = useState('')
+    const [maxLength, setMaxLength] = useState(20)
 
     const options = {
         fieldSeparator: ',',
@@ -27,7 +28,6 @@ export default function FakeUsersTable() {
     };
     const csvExporter = new ExportToCsv(options);
     const handleExportCSV = () => {
-
         csvExporter.generateCsv(users.map(user => user.personalInfo));
     }
 
@@ -41,7 +41,7 @@ export default function FakeUsersTable() {
     const createUser = (withMistakes) => {
         if (seed == null || seed === '') faker.seed()
         else faker.seed(seed)
-        let newUsers = generateUsers(20, ((seed + 100) * 100 || 0))
+        let newUsers = generateUsers(maxLength, ((seed + 100) * 100 || 0))
         if (withMistakes) {
             newUsers = createMistakes(probability || 0, newUsers, seed)
         }
@@ -64,6 +64,7 @@ export default function FakeUsersTable() {
                 newUsers = createMistakes(probability || 0, newUsers, seed)
             }
             setUsers(users.concat(newUsers));
+            setMaxLength(maxLength + newUsers.length)
         }, 1500);
     };
 
