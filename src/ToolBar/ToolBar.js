@@ -7,6 +7,7 @@ import {COUNTRIES} from "../helpers/countries";
 export default function ToolBar(props) {
     const [country, setCountry] = useState('ru')
     const [mistake, setMistake] = useState(0)
+    const [seedValue, setSeedValue] = useState('')
 
     const changeCountry = (code) => {
         setCountry(COUNTRIES[code])
@@ -20,6 +21,14 @@ export default function ToolBar(props) {
     const handleChangeMistake = (e) => {
         setMistake(e.target.value)
         props.onEnterProbability(e.target.value)
+    }
+    const handleChangeSeed = (e) => {
+        setSeedValue(e.target.value)
+        props.onChangeSeed(e.target.value)
+    }
+    const handleSeedRandomize = () => {
+        setSeedValue(getRandomInt(1000))
+        props.onChangeSeed(getRandomInt(1000))
     }
 
     return <ButtonToolbar className="d-flex align-items-center gap-3 mt-3">
@@ -51,16 +60,16 @@ export default function ToolBar(props) {
         </InputGroup>
         <InputGroup className="w-25">
             <Form.Control
-                value={props.seed}
+                value={seedValue}
                 type="number"
-                onChange={e => props.onChangeSeed(e.target.value)}
+                onChange={handleChangeSeed}
                 placeholder="Enter a seed"
                 aria-label="Enter a seed"
-                min="0"
-                max="100"
                 aria-describedby="basic-addon2"
+                min="0"
+                max="1000"
             />
-            <Button onClick={props.onRandomizeSeed}>Random</Button>
+            <Button onClick={handleSeedRandomize}>Random</Button>
         </InputGroup>
 
         <DropdownButton id="dropdown-basic-button" title={country}>
@@ -70,4 +79,7 @@ export default function ToolBar(props) {
         </DropdownButton>
         <Button onClick={props.onExportCSV}>Export to CSV</Button>
     </ButtonToolbar>
+}
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
 }

@@ -47,7 +47,7 @@ export function createMistakes(p, arr, seedValue)  {
 }
 
 function createSeed(userUid, prob, num, seed) {
-    if (!seed) return undefined
+    if (seed == null || seed === '') return undefined
     return [Number(userUid), Number(String(prob).replace('.', '')), Number(num), Number(seed)]
 }
 

@@ -8,11 +8,10 @@ import {createMistakes} from "../helpers/createMistakes";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {ExportToCsv} from "export-to-csv";
 
-
 export default function FakeUsersTable() {
     const [users, setUsers] = useState([])
     const [probability, setProbability] = useState(null)
-    const [seed, setSeed] = useState('')
+    const [seed, setSeed] = useState(null)
     const [maxLength, setMaxLength] = useState(20)
 
     const options = {
@@ -32,16 +31,13 @@ export default function FakeUsersTable() {
     }
 
     useEffect(() => {
-        if ((probability == null || probability === '') && (seed == null || seed === '')) {
-            return;
-        }
         createUser(probability)
     }, [probability, seed])
 
     const createUser = (withMistakes) => {
         if (seed == null || seed === '') faker.seed()
         else faker.seed(seed)
-        let newUsers = generateUsers(maxLength, ((seed + 100) * 100 || 0))
+        let newUsers = generateUsers(maxLength, (seed != null ? (seed + 100) * 100 : 0))
         if (withMistakes) {
             newUsers = createMistakes(probability || 0, newUsers, seed)
         }
@@ -51,11 +47,9 @@ export default function FakeUsersTable() {
     const handleProbability = (value) => {
         setProbability(value === '' ? null : Number(value))
     }
-    const handleSeedRandomize = () => {
-        setSeed(getRandomInt(1000))
-    }
+
     const handleSeedChange = (value) => {
-        setSeed((value === '' || null) ? null : Number(value))
+        setSeed(value === '' ? null : Number(value))
     }
     const fetchMoreData = (withMistakes) => {
         setTimeout(() => {
@@ -70,10 +64,8 @@ export default function FakeUsersTable() {
 
     return <Container>
         <ToolBar
-            seed={seed || ""}
             onCreateUser={createUser}
             onChangeSeed={handleSeedChange}
-            onRandomizeSeed={handleSeedRandomize}
             onEnterProbability={handleProbability}
             onExportCSV={handleExportCSV}
         />
@@ -105,8 +97,5 @@ export default function FakeUsersTable() {
             </Table>
         </InfiniteScroll>
     </Container>
-}
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
 }
 
