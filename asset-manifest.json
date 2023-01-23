@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/fake-users-generator/static/css/main.dc901168.css",
-    "main.js": "/fake-users-generator/static/js/main.9a64ac98.js",
+    "main.js": "/fake-users-generator/static/js/main.01309c3c.js",
     "static/js/27.e1250e0f.chunk.js": "/fake-users-generator/static/js/27.e1250e0f.chunk.js",
     "index.html": "/fake-users-generator/index.html"
   },
   "entrypoints": [
     "static/css/main.dc901168.css",
-    "static/js/main.9a64ac98.js"
+    "static/js/main.01309c3c.js"
   ]
 }
