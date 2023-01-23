@@ -6,7 +6,7 @@ import ToolBar from "../ToolBar/ToolBar";
 import {generateUsers} from "../helpers/createUser";
 import {createMistakes} from "../helpers/createMistakes";
 import InfiniteScroll from "react-infinite-scroll-component";
-import {ExportToCsv} from "export-to-csv";
+import csvDownload from "json-to-csv-export";
 
 export default function FakeUsersTable() {
     const [users, setUsers] = useState([])
@@ -14,20 +14,14 @@ export default function FakeUsersTable() {
     const [seed, setSeed] = useState(null)
     const [maxLength, setMaxLength] = useState(20)
 
-    const options = {
-        fieldSeparator: ',',
-        quoteStrings: '"',
-        decimalSeparator: '.',
-        showLabels: true,
-        showTitle: true,
-        title: 'My Awesome CSV',
-        useTextFile: false,
-        useBom: true,
-        useKeysAsHeaders: true,
-    };
-    const csvExporter = new ExportToCsv(options);
+    const dataToConvert = {
+        data: users.map(user => user.personalInfo),
+        filename: 'Fake_users',
+        delimiter: ',',
+        headers: ['id', "Name", "Email", "Address", "Phone number"]
+    }
     const handleExportCSV = () => {
-        csvExporter.generateCsv(users.map(user => user.personalInfo));
+        csvDownload(dataToConvert)
     }
 
     useEffect(() => {
