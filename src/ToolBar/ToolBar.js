@@ -22,7 +22,7 @@ export default function ToolBar(props) {
         props.onEnterProbability(e.target.value)
     }
 
-    return <ButtonToolbar className="d-flex align-items-center gap-2 mt-3">
+    return <ButtonToolbar className="d-flex align-items-center gap-3 mt-3">
         <span>0</span>
         <InputGroup>
             <Form.Range
@@ -48,7 +48,7 @@ export default function ToolBar(props) {
                 aria-describedby="basic-addon2"
             />
         </InputGroup>
-        <InputGroup>
+        <InputGroup className="w-25">
             <Form.Control
                 value={props.seed}
                 type="number"

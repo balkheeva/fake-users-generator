@@ -93,5 +93,6 @@ function switchSymbols(str, startIndex) {
 
 function removeSymbols(str, startIndex) {
     if (!str) return ''
-    return str.substring(0, startIndex) + str.substring(startIndex + 1);
+    else if(str.length === 1) return str
+    else return str.substring(0, startIndex) + str.substring(startIndex + 1);
 }
