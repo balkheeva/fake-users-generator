@@ -35,12 +35,13 @@ export default function ToolBar(props) {
                 aria-describedby="basic-addon2"
             />
         </InputGroup>
-        <span className="me-3">{Number(mistake) === 0 ? 10 : mistake}</span>
+        <span className="me-3">{(Number(mistake) === 0 || Number(mistake) > 10) ? 10 : mistake}</span>
         <InputGroup >
             <Form.Control
                 type="number"
                 min="0"
                 max="1000"
+                step="0.25"
                 value={mistake}
                 onChange={handleChangeMistake}
                 placeholder={mistake.toString()}

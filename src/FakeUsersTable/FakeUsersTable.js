@@ -1,4 +1,4 @@
-import {Table, Form, Spinner, Container, Button, ButtonToolbar, Dropdown} from "react-bootstrap";
+import {Table, Container} from "react-bootstrap";
 import User from "../User/User";
 import {useEffect, useState} from "react";
 import {faker} from '@faker-js/faker';
@@ -32,7 +32,7 @@ export default function FakeUsersTable() {
     }
 
     useEffect(() => {
-        if ((probability == null || probability === '') && !seed) {
+        if ((probability == null || probability === '') && (seed == null || seed === '')) {
             return;
         }
         createUser(probability)
@@ -52,10 +52,10 @@ export default function FakeUsersTable() {
         setProbability(value === '' ? null : Number(value))
     }
     const handleSeedRandomize = () => {
-        setSeed(Number(faker.random.numeric(2)))
+        setSeed(getRandomInt(1000))
     }
     const handleSeedChange = (value) => {
-        setSeed(value === '' ? null : Number(value))
+        setSeed((value === '' || null) ? null : Number(value))
     }
     const fetchMoreData = (withMistakes) => {
         setTimeout(() => {
@@ -69,7 +69,7 @@ export default function FakeUsersTable() {
 
     return <Container>
         <ToolBar
-            seed={seed}
+            seed={seed || ""}
             onCreateUser={createUser}
             onChangeSeed={handleSeedChange}
             onRandomizeSeed={handleSeedRandomize}
@@ -105,5 +105,7 @@ export default function FakeUsersTable() {
         </InfiniteScroll>
     </Container>
 }
-
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
 
