@@ -40,10 +40,6 @@ export function createMistakes(p, arr, seedValue)  {
             const mistakes = userSchema[randomKey]
             const mi = randomNumberUpTo(mistakes.length, seed ? [...seed, 2] : seed)
             const value = mistakes[mi](prevValue, randSymbolIndex, seed)
-            newUser.mistakes[randomKey] = newUser.mistakes[randomKey] || []
-            newUser.mistakes[randomKey].push([prevValue, value, mistakes[mi]])
-            newUser.mistakes[mistakes[mi].name] = newUser.mistakes[mistakes[mi].name] || 0
-            newUser.mistakes[mistakes[mi].name] += 1
             newUser.personalInfo[randomKey] = value
         }, p, user.uid, seedValue)
         return newUser
